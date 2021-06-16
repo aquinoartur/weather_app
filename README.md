@@ -13,3 +13,10 @@ O app está sendo desenvolvido para fins de estudo em consumo de API's e de cons
  <p align="center">
  <img  width="325" height="650"  src="assets/to_readme/present.gif">
  <p/>
+
+## Aprendizado
+* Mudança de estado através de `setState`/`CallBack`.
+* Construção de UI moderna.
+* Componentização.
+* Consumo de API.
+* Tratamento de retornos `Json`.
