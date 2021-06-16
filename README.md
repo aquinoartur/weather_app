@@ -11,5 +11,5 @@ O app está sendo desenvolvido para fins de estudo em consumo de API's e de cons
 ## Funcionamento do app
  
  <p align="center">
- <img   src="assets/to_readme/present.gif">
+ <img  width="325" height="650"  src="assets/to_readme/present.gif">
  <p/>
