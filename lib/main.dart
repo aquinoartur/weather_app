@@ -9,13 +9,20 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+    return NotificationListener<OverscrollIndicatorNotification>(
+        onNotification: (OverscrollIndicatorNotification overscroll){
+      overscroll.disallowGlow();
+      return true;
+    },
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        theme: ThemeData(
+            primarySwatch: Colors.blue,
+            accentColor: Colors.transparent
+        ),
+        home: HomePage(),
+        debugShowCheckedModeBanner: false,
       ),
-      home: HomePage(),
-      debugShowCheckedModeBanner: false,
     );
   }
 }

@@ -12,8 +12,9 @@ Widget historyBodyWidget ({required List<Climate> list} ){
       gridDelegate:
       SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 1,
-          crossAxisSpacing: 1,
-          mainAxisSpacing: 1
+          mainAxisExtent: 60,
+          crossAxisSpacing: .1,
+          mainAxisSpacing: .1
       ),
       itemCount: list.length,
       itemBuilder: (context, index) {
@@ -32,7 +33,7 @@ Widget historyBodyWidget ({required List<Climate> list} ){
             Expanded(//time
               flex: 1,
               child: Text(
-                "${list[index].data!.date!.substring(11, 19)}",
+                "${list[index].data!.date!.substring(11, 16)}",
                 style: TextStyles.t1Style,
                 textAlign: TextAlign.center,
               ),
@@ -40,7 +41,7 @@ Widget historyBodyWidget ({required List<Climate> list} ){
             Expanded( //date
                 flex: 1,
                 child: Text(
-                  "${list[index].data!.date!.substring(0, 10)}",
+                  "${list[index].data!.date!.substring(2, 10)}",
                   style: TextStyles.t1Style,
                   textAlign: TextAlign.center,
                 )

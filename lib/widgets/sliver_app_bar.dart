@@ -30,13 +30,16 @@ class _SliverAppBarWidgetState extends State<SliverAppBarWidget> {
       ),
       actions: [
         IconButton(
+          splashColor: Colors.transparent,
+            highlightColor: Colors.transparent,
             onPressed: (){
               setState(() {
                 toogle = !toogle;
                 widget.toogleBack(toogle);
               });
             },
-            icon: toogle == true ? LineIcon.toggleOn(size: 30,) : LineIcon.toggleOff(size: 30,))
+            icon: toogle == true ? Icon(Icons.nights_stay, size: 20,) : Icon(Icons.wb_sunny_sharp, size: 20,)
+        )
       ],
     );
   }

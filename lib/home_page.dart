@@ -37,6 +37,14 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  Future<Null> _refresh() async {
+    await Future.delayed(Duration(seconds: 1));
+    setState(() {
+      getClimate();
+    });
+    return null;
+  }
+
   @override
   void initState() {
     super.initState();
@@ -47,7 +55,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     if (climate != null) {
       date = climate!.data!.date!.substring(0, 10);
-      time = climate!.data!.date!.substring(11, 19);
+      time = climate!.data!.date!.substring(11, 16);
     }
 
     return Scaffold(
@@ -55,49 +63,55 @@ class _HomePageState extends State<HomePage> {
         children: [
           toogle == false ? gradient() : gradient2(),
           climate != null
-              ? CustomScrollView(
-                  shrinkWrap: true,
-                  physics: BouncingScrollPhysics(),
-                  slivers: [
-                    SliverAppBarWidget(
-                        climate!.name!,
-                        (bool toogleBack){ //callback
-                          setState(() {
-                            toogle = toogleBack;
-                          });
-                        }
-                    ),
-                    SliverToBoxAdapter(
-                      child: Column( //corpo total
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          //cabeçalho
-                          cabecalhoWidget(
-                            time: time!,
-                            state: climate!.state!,
-                            country: climate!.country!,
-                          ),
-                          SizedBox(height: 10),
-                          cardWidget( //card info
-                            temperature: climate!.data!.temperature.toString(),
-                            sensation: climate!.data!.sensation.toString(),
-                            humidity: climate!.data!.humidity.toString(),
-                            icon: climate!.data!.icon!,
-                            condition: climate!.data!.condition!,
-                          ),
-                          miniCardList(
-                            card1: climate!.data!.windVelocity!.toString() + " km/h",
-                            card2: climate!.data!.windDirection!,
-                            card3: climate!.data!.pressure!.toString() + " hPa",
-                          ),
-                          SizedBox(height: 20),
-                          historyHeaderWidget(),
-                          historyBodyWidget(list: list),
-                        ],
+              ? RefreshIndicator(
+                onRefresh: _refresh,
+                color: Color.fromARGB(255, 2, 35, 109),
+                displacement: MediaQuery.of(context).size.height / 4,
+                child: CustomScrollView(
+                    shrinkWrap: true,
+                    slivers: [
+                      SliverAppBarWidget(
+                          climate!.name!,
+                          (bool toogleBack){ //callback
+                            setState(() {
+                              toogle = toogleBack;
+                              if (climate!.data!.icon!.contains("n")){
+                                toogle = true;
+                              }
+                            });
+                          }
                       ),
-                    )
-                  ],
-                )
+                      SliverToBoxAdapter(
+                        child: Column(
+                          // corpo total
+                          children: [
+                            cabecalhoWidget(
+                              time: time!,
+                              state: climate!.state!,
+                              country: climate!.country!,
+                            ),
+                            cardWidget( //card info
+                              temperature: climate!.data!.temperature.toString(),
+                              sensation: climate!.data!.sensation.toString(),
+                              humidity: climate!.data!.humidity.toString(),
+                              icon: climate!.data!.icon!,
+                              condition: climate!.data!.condition!,
+                            ),
+                            SizedBox(height: 10),
+                            miniCardList(
+                              card1: climate!.data!.windVelocity!.toString() + " km/h",
+                              card2: climate!.data!.windDirection!,
+                              card3: climate!.data!.pressure!.toString() + " hPa",
+                            ),
+                            SizedBox(height: 10),
+                            historyHeaderWidget(),
+                            historyBodyWidget(list: list),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+              )
               : awaitApiWidget()
         ],
       ),

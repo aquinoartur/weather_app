@@ -5,7 +5,7 @@ import '../styles/styles.dart';
 Widget cabecalhoWidget(
     {required String time, required String state, required String country}) {
   return Padding(
-    padding: EdgeInsets.fromLTRB(30, 20, 30, 10),
+    padding: EdgeInsets.fromLTRB(30, 15, 30, 15),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -18,7 +18,7 @@ Widget cabecalhoWidget(
               size: 16,
             ),
             Text(
-              time,
+              " $time",
               style: TextStyles.t1Style,
             ),
           ],
